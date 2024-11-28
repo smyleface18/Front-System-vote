@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    --color-primary:#fff;
+    --color-secundary:#1980e6;
+    --color-terceary:#02746b;
+    --aurora-1: #01c89e;
+    --aurora-1-2: #01c89d84;
+    --aurora-2: #ff3232;
+}
