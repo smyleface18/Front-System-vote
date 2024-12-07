@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import Swal from 'sweetalert2' 
-import { data } from 'autoprefixer';
+
 
 let inputs;
 let isFocus = ref([]);

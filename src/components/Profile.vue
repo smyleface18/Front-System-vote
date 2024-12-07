@@ -1,8 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,computed } from 'vue';
 import DashBoard from './DashBoard.vue';
+import SingUp from './SingUp.vue';
 
-const data = ref({});
+
+let data = ref({});
 const token = localStorage.getItem('token');
 
 const fetchData = async () => {
@@ -21,6 +23,7 @@ const fetchData = async () => {
 
         const result = await response.json();
         data.value = result;
+        console.log(data.value)
     } catch (error) {
         console.error('Error:', error);
     }
@@ -29,14 +32,43 @@ const fetchData = async () => {
 onMounted(() => {
     fetchData();
 });
+
+const routes = {
+  '/': DashBoard,
+  '/SingUp': SingUp
+}
+
+
+const currentPath = ref(window.location.hash);
+
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
+
+const currentView = computed(() => {
+  return routes[currentPath.value.slice(1) || '/'] || NotFound
+})
 </script>
 
 <template>
-    <div class="h-full w-full">
-        <DashBoard :name="data.name" :id="data.id">
-            <h4>hola</h4>
-            <h4>{{ data.name }}</h4>
-            <h4>{{ data.vote }}</h4>
-        </DashBoard>
+    <div class="h-full w-full flex p-5 space-x-10 bg-gray-200">
+        <div class="h-full bg  flex flex-col justify-start items-center py-10 space-y-5 text-white w-2/12 rounded-lg">
+            <a href="#/" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Dashboard</a>
+            <a href="#/SingUp" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My ballot boxe</a>
+            <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My votes</a>
+            <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</a>
+            <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</a>
+            <img src="../assets/Estadistica-icon.png"  class="w-3/5 pt-10 " alt="">
+        </div>
+        <component class="w-4/5 h-full overflow-hidden" :is="currentView" :data="data" ></component>
     </div>
 </template>
+<style scoped>
+.bg{
+    background-image: url('../assets/bgColum.svg');
+    background-size: cover;
+    }
+img:hover{
+    filter: drop-shadow(0 0 0.75rem #00000070);
+}
+</style>
