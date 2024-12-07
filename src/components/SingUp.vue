@@ -54,8 +54,7 @@ function registerData(){
                     password:inputs[2].value
                 })
             }).then(response => response.json())
-            .then(data => {    
-                console.log(data)                 
+            .then(data => {                 
                 Swal.fire({ 
                     title: data.title, 
                     text: data.message,
@@ -65,8 +64,9 @@ function registerData(){
                 console.log(error)
              });
 
-            inputs.forEach(input =>{
-                input.value = ''; 
+             inputs.forEach((input,index) =>{
+                input.value = '';
+                isFocus.value[index] = !isFocus.value[index] 
             })
         }
         else{
@@ -125,7 +125,7 @@ function registerData(){
                     <span class="bg-[var(--color-terceary)] h-[100%] rounded px-2 text-white  flex items-center" :class="{'!bg-[var(--aurora-1-2)] !text-black':isFocus[3]}">Password</span><input type="password" name="" id="passwordUser" placeholder="repeat password" class="inputs h-full" required>
                   </div>
                   <div class="containerInput mx-auto space-x-5 flex justify-center " >
-                    <input type="checkbox" name="" id="checkTerms" class="" required><span class=" h-full rounded px-2  text-xs  flex items-center">I agree the <a href="" class="font-semibold" >Terms of User</a></span>
+                    <input type="checkbox" name="" id="checkTerms" class="bg-black" required><span class=" h-full rounded px-2  text-xs  flex items-center">I agree the <a href="" class="font-semibold" >Terms of User</a></span>
                   </div>
                   <input type="submit" value="Login"  class="p-1 w-2/3 rounded m-auto  hover:bg-[var(--aurora-1-2)] hover:text-black text-white bg-[var(--color-terceary)]  hover:cursor-pointer hover:scale-105">
             </form>     
