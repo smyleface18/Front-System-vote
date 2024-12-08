@@ -3,7 +3,7 @@ import { ref, onMounted,computed } from 'vue';
 import DashBoard from './DashBoard.vue';
 import SingUp from './SingUp.vue';
 
-
+let isLoading = ref(true);
 let data = ref({});
 const token = localStorage.getItem('token');
 
@@ -23,7 +23,7 @@ const fetchData = async () => {
 
         const result = await response.json();
         data.value = result;
-        console.log(data.value)
+        isLoading.value = false;
     } catch (error) {
         console.error('Error:', error);
     }
@@ -60,7 +60,11 @@ const currentView = computed(() => {
             <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</a>
             <img src="../assets/Estadistica-icon.png"  class="w-3/5 pt-10 " alt="">
         </div>
-        <component class="w-4/5 h-full overflow-hidden" :is="currentView" :data="data" ></component>
+        <component class="w-4/5 h-full overflow-hidden" v-if="!isLoading" :is="currentView" :data="data" ></component>
+        <div v-else class="flex justify-center items-center h-full"> 
+            <p>Cargando datos...</p>
+            </div>
+
     </div>
 </template>
 <style scoped>
