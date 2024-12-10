@@ -1,9 +1,17 @@
 <script setup>
-import iconVote from './VoteIcon.vue';
+import IconList from './IconList.vue';
+import VoteIcon from './VoteIcon.vue';
+import IconWinner from './IconWinner.vue';
+import ListVoteing from './ListVoteing.vue';
+import CardProfile from './CardProfile.vue';
 import { computed } from 'vue';
 import 'v-calendar/dist/style.css'; 
+
+
 const props = defineProps(['data'])
  console.log(new Date(props.data.vote[0].dateInit*1))
+
+
 const attributes =  [
         {
             dot:true,
@@ -18,6 +26,8 @@ const attributes =  [
           dates: { start: new Date(props.data.vote[0].dateInit*1), end: new Date(2024, 11, 18) },
         },
       ]
+
+
 
       const participations = computed(() => { return props.data.voted != null ? props.data.voted.length : 0; });
 
@@ -34,7 +44,7 @@ const attributes =  [
                 <div class="grid grid-cols-3 grid-rows-5 gap-4 h-full w-full ">
                     <div>
                         <div class="h-full rounded-lg py-3 flex  items-center justify-evenly bg-white ">
-                            <iconVote class="p-2 size-12 bg rounded-full text-white"></iconVote>
+                            <VoteIcon class="p-2 size-12 bg rounded-full text-white"></VoteIcon>
                             <div class="flex justify-center flex-col items-center ">
                                 <h5 >has participated en</h5>
                                 <span>{{ participations }}</span>
@@ -43,7 +53,7 @@ const attributes =  [
                     </div>
                     <div class="col-start-1 row-start-2">
                         <div class="h-full rounded-lg py-3 flex  items-center justify-evenly bg-white ">
-                            <iconVote class="p-2 size-12 bg rounded-full text-white"></iconVote>
+                            <VoteIcon class="p-2 size-12 bg rounded-full text-white"></VoteIcon>
                             <div class="flex justify-center flex-col items-center ">
                                 <h5 >has participated en</h5>
                                 <span>{{ participations }}</span>
@@ -57,7 +67,7 @@ const attributes =  [
                     </div>
                     <div class="col-start-2 row-start-1">
                         <div class=" rounded-lg py-3 flex  items-center justify-evenly bg-white ">
-                            <iconVote class="p-2 size-12 bg rounded-full text-white"></iconVote>
+                            <VoteIcon class="p-2 size-12 bg rounded-full text-white"></VoteIcon>
                             <div class="flex justify-center flex-col items-center ">
                                 <h5 >has participated en</h5>
                                 <span>{{ participations }}</span>
@@ -66,17 +76,23 @@ const attributes =  [
                     </div>
                     <div class="row-span-4 col-start-2 row-start-2">
                         <div class="flex bg-white h-full rounded-lg flex-col">
-                                <iconVote class="p-2 size-12 bg rounded-full text-white"></iconVote>
-                                <h5>name of voteing  <span class="mr-4 font-semibold">- winner</span> </h5>
-                            
-                            <div class="flex w-full h-full justify-center flex-col  overflow-y-scroll overflow-x-hidden">
-                                <div v-for="vote in props.data.vote">
-                                    {{ vote.title }}
+                            <div class="flex space-x-5 items-center py-5 text-sm mx-auto">
+                                <div class="flex items-center space-x-2">
+                                    <IconList class="p-2 w-10 h-10 bg rounded-full text-white "></IconList>
+                                    <h5>name of voteing</h5>
                                 </div>
+                                    <span class="font-semibold flex items-center space-x-2">
+                                        <IconWinner class="size-10 p-2 bg rounded-full text-white"></IconWinner>
+                                        <span>winner</span>    
+                                        
+                                    </span>
                             </div>
+                            <ListVoteing :votes="props.data.vote"></ListVoteing>
                         </div>
                     </div>
-                    <div className="row-span-5 col-start-3 bg-white rounded-lg">3</div>
+                    <div className="row-span-5 col-start-3 bg-white rounded-lg p-2">
+                        <CardProfile :name="props.data.name" :email="props.data.email"></CardProfile>
+                    </div>
                 </div>
             </div>
             <slot></slot>
@@ -89,13 +105,17 @@ const attributes =  [
     background-size: cover;
     background-repeat: no-repeat;
  }
+ .bgRed{
+    background-image: url("../assets/bgButtonRed.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: solid rgba(0, 0, 0, 0.507) 1px;
+ }
  .bg:hover{
     -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
     
  }
- .custom-calendar-size { width: 100%; /* Ajusta el ancho según tus necesidades */ 
-    height: 500px; /* Ajusta la altura según tus necesidades */ }
 
 </style>
