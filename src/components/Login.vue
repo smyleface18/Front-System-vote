@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import Swal from 'sweetalert2' 
+import Swal from 'sweetalert2';
 
 
 let inputs;

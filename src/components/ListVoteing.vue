@@ -18,26 +18,22 @@ function viewVotes(){
     ELEMENT.forEach((element,index) => {
         element.addEventListener('mouseenter',() =>{
             hidden.value[index] = false;
-            console.log(hidden.value[index])
         })
     });
     ELEMENT.forEach((element,index) => {
         element.addEventListener('mouseleave',() =>{
             hidden.value[index] = true;
-            console.log(hidden.value[index])
         })
     });
 
     VOTES.forEach((element,index) => {
         element.addEventListener('mouseenter',() =>{
             hidden.value[index] = false;
-            console.log(hidden.value[index])
         })
     });
     VOTES.forEach((element,index) => {
         element.addEventListener('mouseleave',() =>{
             hidden.value[index] = true;
-            console.log(hidden.value[index])
         })
     });
 }

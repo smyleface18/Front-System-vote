@@ -4,6 +4,8 @@ import VoteIcon from './VoteIcon.vue';
 import IconWinner from './IconWinner.vue';
 import ListVoteing from './ListVoteing.vue';
 import CardProfile from './CardProfile.vue';
+import IconSurvey   from './IconSurvey.vue';
+import IconPeoples from './IconPeoples.vue';
 import { computed } from 'vue';
 import 'v-calendar/dist/style.css'; 
 
@@ -29,9 +31,20 @@ const attributes =  [
 
 
 
-      const participations = computed(() => { return props.data.voted != null ? props.data.voted.length : 0; });
-
-    
+    const Countparticipations = computed(() => { return props.data.voted != null ? props.data.voted.length : 0; });
+    const Countvotings = computed(() => {return props.data.vote != null? props.data.vote.length : 0; })
+    const Countvotes = computed(() => {
+        let count = 0;
+        if(props.data.vote != null){
+            props.data.vote.forEach(votes => {
+                votes.options.forEach(option => {
+                    count += option.votes
+                })
+            });
+            
+        }
+        return count;
+    })
 </script>
 
 
@@ -46,17 +59,23 @@ const attributes =  [
                         <div class="h-full rounded-lg py-3 flex  items-center justify-evenly bg-white ">
                             <VoteIcon class="p-2 size-12 bg rounded-full text-white"></VoteIcon>
                             <div class="flex justify-center flex-col items-center ">
-                                <h5 >has participated en</h5>
-                                <span>{{ participations }}</span>
+                                <h5 >He has participated in</h5>
+                                <span>
+                                    <span class="font-semibold">{{ Countparticipations }} </span>
+                                    <span> voting</span>
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div class="col-start-1 row-start-2">
                         <div class="h-full rounded-lg py-3 flex  items-center justify-evenly bg-white ">
-                            <VoteIcon class="p-2 size-12 bg rounded-full text-white"></VoteIcon>
+                            <IconSurvey class="p-2 size-12 bg rounded-full text-white"></IconSurvey>
                             <div class="flex justify-center flex-col items-center ">
-                                <h5 >has participated en</h5>
-                                <span>{{ participations }}</span>
+                                <h5 >You have created</h5>
+                                <span>
+                                    <span class="font-semibold">{{ Countvotings }} </span>
+                                    <span> votings</span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -66,11 +85,14 @@ const attributes =  [
                         </div>
                     </div>
                     <div class="col-start-2 row-start-1">
-                        <div class=" rounded-lg py-3 flex  items-center justify-evenly bg-white ">
-                            <VoteIcon class="p-2 size-12 bg rounded-full text-white"></VoteIcon>
+                        <div class=" rounded-lg py-3 flex  items-center justify-evenly bg-white h-full">
+                            <IconPeoples class="p-2 size-12 bg rounded-full text-white"></IconPeoples>
                             <div class="flex justify-center flex-col items-center ">
-                                <h5 >has participated en</h5>
-                                <span>{{ participations }}</span>
+                                <h5 >Your votes received</h5>
+                                <span>
+                                    <span class="font-semibold">{{ Countvotes }} </span>
+                                    <span> votes in total.</span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -91,7 +113,7 @@ const attributes =  [
                         </div>
                     </div>
                     <div className="row-span-5 col-start-3 bg-white rounded-lg p-2">
-                        <CardProfile :name="props.data.name" :email="props.data.email"></CardProfile>
+                        <CardProfile :name="props.data.name" :email="props.data.email" :id="props.data.id"></CardProfile>
                     </div>
                 </div>
             </div>
@@ -100,6 +122,7 @@ const attributes =  [
     </div>
 </template>
 <style scoped>
+
  .bg{
     background-image: url("../assets/bgColum.svg");
     background-size: cover;
