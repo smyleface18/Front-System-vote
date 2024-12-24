@@ -28,7 +28,7 @@ else {
                 :class="{'bg-gray-200': !haveVotes , 'bg' : haveVotes}"
                 class=" p-2 rounded">View Ballot Boxe</button>
         </div>
-        <CreateBallotBoxe v-show="viewComponent.CreateBallotBoxe"></CreateBallotBoxe>
+        <CreateBallotBoxe v-show="viewComponent.CreateBallotBoxe" :idUser="props.data.id"></CreateBallotBoxe>
         <div v-show="viewComponent.CardBallot" class="w-full flex flex-col items-center overflow-y-scroll h-full">
             <CardBallot v-for="vote in data.vote" :title="vote.title" 
             class="bg-red-500 rounded mb-5"></CardBallot>

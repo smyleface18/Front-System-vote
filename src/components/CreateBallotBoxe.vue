@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import Iconclose from './icons/IconClose.vue';
 import IconAdd from './icons/IconAdd.vue';
 
+const props = defineProps(['idUser'])
 let options = ref([{ id: 1, showDelete: false, input: null, select: false },
                     { id: 2, showDelete: false, input: null, select: false }
                 ])
@@ -30,11 +31,43 @@ function optionFocus(option){
     option.input.focus()
 }
 
-
+function submitForm(){
+    console.log(options.value[0].input.value)
+    let TextOptions = []
+    options.value.forEach((option) =>{
+        TextOptions.push(
+            {text : option.value.input.value}
+        )
+    }
+    )
+    const form = document.querySelector('form');
+    form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch("ffd",
+            {
+                method: 'POST',
+                modo: 'cors',
+                headers:{
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        "Authorization" : 'Bearer ' + localStorage.getItem("token")
+                    },
+                    body : JSON.stringify({
+                        idUser : props.idUser,
+                        title : "s",
+                        options : TextOptions
+                    })
+                }
+            }
+        ).then(Response => {
+            console.log(Response)
+        })
+    })
+}
 </script>
 <template>
         <div class=" w-full rounded py-2">
-            <form action="" class="flex flex-col items-center space-y-5 ">
+            <form action="" class="flex flex-col items-center space-y-5 " @submit="submitForm()">
                 <div class="flex flex-col  w-1/2">
                     <span class="font-semibold  text-lg">title of the ballot boxe </span>
                     <input type="text" name="" id="" placeholder="title of ballot boxe" class="rounded focus:outline-none bg-gray-200 text-center py-[2px] font-semibold text-xl" required>
