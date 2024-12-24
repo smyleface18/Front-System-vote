@@ -1,5 +1,5 @@
 <script setup>
-import IconEdit from './IconEdit.vue'
+import IconEdit from './icons/IconEdit.vue'
 import { ref, onMounted } from 'vue';
 import Swal from 'sweetalert2';
 
@@ -38,6 +38,9 @@ function sendForm() {
             }
         }
         });
+        console.log(inputs[0].value)
+        console.log(inputs[1].value)
+        console.log(inputs[2].value)
         fetch("http://127.0.0.1:8080/user/updata",{
             method: 'POST',
             headers: {
@@ -47,8 +50,9 @@ function sendForm() {
             body:JSON.stringify({    
                 id:props.id,
                 name: inputs[0].value != ""? inputs[0].value : props.name,
-                email: inputs[1].value != ""? inputs[0].value : props.email,
-                password: inputs[2].value != ""? inputs[2].value: password,
+                email: inputs[1].value != ""? inputs[1].value : props.email,
+                password: password,
+                newPassword: inputs[2].value
                 }
             )
         })

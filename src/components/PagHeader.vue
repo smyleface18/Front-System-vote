@@ -51,7 +51,3 @@
     }
 </style>
 
-<script setup>
-
-  
-</script>

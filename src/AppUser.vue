@@ -17,7 +17,7 @@ window.addEventListener('hashchange', () => {
 })
 
 const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
+  return routes[currentPath.value.slice(1) || '/'] || Profile
 })
 </script>
 
@@ -51,7 +51,7 @@ const currentView = computed(() => {
              </div>
            </div>
          </header>
-         <component :is="currentView" ></component>
+         <component :is="currentView" class=" bg-gray-200 h-2/4"></component>
  </template>
  <style>
      #hoverButton:hover{
