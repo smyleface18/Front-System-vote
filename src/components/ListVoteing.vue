@@ -5,37 +5,22 @@ let hidden = ref([]);
 
 
 function winner(options){
-    return options.reduce((prev,current) => (prev.votes > current.votes)? prev : current)
+    let value = options.some(option => option.votes >0)
+    if(value){
+        return options.reduce((prev,current) => (prev.votes > current.votes)? prev : current)
+    }
+    return {
+        text : "has no votes"
+    }
 }
+
 
 function viewVotes(){
     const ELEMENT = [...document.querySelectorAll("#Winner")];
-    const VOTES = [...document.querySelectorAll("#votes")];
-
-    ELEMENT.forEach(element =>{
+    ELEMENT.forEach(() =>{
         hidden.value.push(true)
     })
-    ELEMENT.forEach((element,index) => {
-        element.addEventListener('mouseenter',() =>{
-            hidden.value[index] = false;
-        })
-    });
-    ELEMENT.forEach((element,index) => {
-        element.addEventListener('mouseleave',() =>{
-            hidden.value[index] = true;
-        })
-    });
 
-    VOTES.forEach((element,index) => {
-        element.addEventListener('mouseenter',() =>{
-            hidden.value[index] = false;
-        })
-    });
-    VOTES.forEach((element,index) => {
-        element.addEventListener('mouseleave',() =>{
-            hidden.value[index] = true;
-        })
-    });
 }
 
 onMounted(() => {
@@ -52,8 +37,7 @@ onMounted(() => {
                 <p class=""> {{ vote.title }}</p>
             </div>
             <div  class="flex items-center text-center ">
-                <p id="Winner" class="hover:cursor-none px-2">{{winner(vote.options).text}}</p>
-                <p id="votes" :class="{ 'hidden' : hidden[index]}" class="z-10 absolute bgRed rounded px-5 left-[60%] hover:cursor-none">won with {{winner(vote.options).votes}} votes</p>
+                <p id="Winner" class=" px-2">{{winner(vote.options).text}}</p>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ onMounted(() =>{
         edit.value = !edit.value;
         if(edit.value){
             Swal.fire({                    
-                    text: "You can change one or several data of your account, if you want to change only one, then you only have to write in the one you want to change the information and leave the others the same.",
+                    text: "You can change one or several data of your account, if you want to change only one, then you only have to write in the one you want to change the information and leave the others empty.",
                     icon: "info"})
         }
     })

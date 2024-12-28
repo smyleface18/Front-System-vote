@@ -112,22 +112,22 @@ function registerData(){
             </div>    
             <form id="form" action="" method="post" class="flex flex-col space-y-8  w-4/6 h-full px-5 justify-center bg-white rounded-lg">
                     
-                    <div class="containerInput mx-auto" :class="{'bg-[var(--aurora-1-2)]':isFocus[0]}" >
-                        <span class="bg-[var(--color-terceary)] h-[100%] rounded px-2 text-white   flex items-center" :class="{'!bg-[var(--aurora-1-2)] !text-black':isFocus[0]}">Name</span><input type="text" name="" id="nameUser" placeholder="name" class="inputs h-full" required>
+                    <div class="containerInput mx-auto" :class="{'bgImg':isFocus[0]}" >
+                        <span class="bgImg h-[100%] rounded px-2 text-white   flex items-center">Name</span><input type="text" name="" id="nameUser" placeholder="name" class="inputs h-full" required>
                     </div>
-                    <div class="containerInput mx-auto" :class="{'bg-[var(--aurora-1-2)]':isFocus[1]}" >
-                    <span class="bg-[var(--color-terceary)] h-[100%] rounded px-2 text-white   flex items-center" :class="{'!bg-[var(--aurora-1-2)] !text-black':isFocus[1]}">Email</span><input type="email" name="" id="emailUser" placeholder="your email" class="inputs h-full" required>
+                    <div class="containerInput mx-auto" :class="{'bgImg':isFocus[1]}" >
+                    <span class="bgImg h-[100%] rounded px-2 text-white   flex items-center">Email</span><input type="email" name="" id="emailUser" placeholder="your email" class="inputs h-full" required>
                   </div>
-                  <div class="containerInput mx-auto" :class="{'bg-[var(--aurora-1-2)]':isFocus[2]}" >
-                    <span class="bg-[var(--color-terceary)] h-[100%] rounded px-2 text-white   flex items-center" :class="{'!bg-[var(--aurora-1-2)] !text-black':isFocus[2]}">Password</span><input type="password" name="" id="passwordUser" placeholder="your password" class="inputs h-full" required>
+                  <div class="containerInput mx-auto" :class="{'bgImg':isFocus[2]}" >
+                    <span class="bgImg h-[100%] rounded px-2 text-white   flex items-center">Password</span><input type="password" name="" id="passwordUser" placeholder="your password" class="inputs h-full" required>
                   </div>
-                  <div class="containerInput mx-auto" :class="{'bg-[var(--aurora-1-2)]':isFocus[3]}" >
-                    <span class="bg-[var(--color-terceary)] h-[100%] rounded px-2 text-white  flex items-center" :class="{'!bg-[var(--aurora-1-2)] !text-black':isFocus[3]}">Password</span><input type="password" name="" id="passwordUser" placeholder="repeat password" class="inputs h-full" required>
+                  <div class="containerInput mx-auto" :class="{'bgImg':isFocus[3]}" >
+                    <span class="bgImg h-[100%] rounded px-2 text-white  flex items-center">Password</span><input type="password" name="" id="passwordUser" placeholder="repeat password" class="inputs h-full" required>
                   </div>
                   <div class="containerInput mx-auto space-x-5 flex justify-center " >
                     <input type="checkbox" name="" id="checkTerms" class="bg-black" required><span class=" h-full rounded px-2  text-xs  flex items-center">I agree the <a href="" class="font-semibold" >Terms of User</a></span>
                   </div>
-                  <input type="submit" value="Login"  class="p-1 w-2/3 rounded m-auto  hover:bg-[var(--aurora-1-2)] hover:text-black text-white bg-[var(--color-terceary)]  hover:cursor-pointer hover:scale-105">
+                  <input type="submit" value="Login"  class="bgImg  p-1 w-2/3 rounded m-auto  hover:bg-[var(--aurora-1-2)]  text-white  hover:cursor-pointer hover:scale-105">
             </form>     
         </div>
     </div>
@@ -135,16 +135,22 @@ function registerData(){
 <style scoped>
 
 #textWelcome{
-    background-image: url('../assets/layered-waves-haikei (1).svg');
+    background-image: url('../assets/');
     background-size: cover;
 }
     #bg{
         height: calc(100vh - 65px);
-        background-image: url('../assets/bgLogin.svg');
+        background-image: url('../assets/bgColum.svg');
+        background-size: cover;
         -webkit-box-shadow: inset 10px 62px 215px -15px rgba(77,76,77,1);
         -moz-box-shadow: inset 10px 62px 215px -15px rgba(77,76,77,1);
         box-shadow: inset 10px 62px 215px -15px rgba(77,76,77,1);
     }
+.bgImg{
+    background-image: url('../assets/bgColum.svg');
+        background-size: cover;
+
+}
     .containerInput{
         display: flex;
         flex-direction: row;

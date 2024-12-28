@@ -1,13 +1,21 @@
 <script setup>
-import { ref } from 'vue';
+import {  ref } from 'vue';
 import Iconclose from './icons/IconClose.vue';
 import IconAdd from './icons/IconAdd.vue';
+
+
+
 
 const props = defineProps(['idUser'])
 let options = ref([{ id: 1, showDelete: false, input: null, select: false },
                     { id: 2, showDelete: false, input: null, select: false }
                 ])
-
+let inputTitle = ref()
+const token = localStorage.getItem("token");
+let dateInit = ref(null);
+let dateEnd = ref(null);
+let regex = ref(null);
+let ShowPreviewBallotBoxe = ref(false)
 
 function addOption(){
     options.value.push({
@@ -19,9 +27,7 @@ function addOption(){
 }
 function deleteOption(option){
     if(options.value.length > 2){
-        console.log(options.value)
         options.value = options.value.filter((op) => op.id != option.id)
-        console.log(options.value)
     }
 }
 
@@ -32,45 +38,39 @@ function optionFocus(option){
 }
 
 function submitForm(){
-    console.log(options.value[0].input.value)
-    let TextOptions = []
-    options.value.forEach((option) =>{
-        TextOptions.push(
-            {text : option.value.input.value}
-        )
-    }
-    )
-    const form = document.querySelector('form');
-    form.addEventListener('submit', e => {
-        e.preventDefault()
-        fetch("ffd",
-            {
-                method: 'POST',
-                modo: 'cors',
-                headers:{
-                    headers: {
-                        'Content-Type' : 'application/json',
-                        "Authorization" : 'Bearer ' + localStorage.getItem("token")
-                    },
-                    body : JSON.stringify({
-                        idUser : props.idUser,
-                        title : "s",
-                        options : TextOptions
+            let TextOptions = []
+            options.value.forEach((option) =>{
+                TextOptions.push(option.input.value)})
+
+            fetch("http://127.0.0.1:8080/vote/create",{
+                    method: 'POST',
+                    headers:{
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type' : 'application/json'
+                        },
+                        body : JSON.stringify({
+                            idUser : props.idUser,
+                            title : inputTitle.value,
+                            options : TextOptions,
+                            dateInit : new Date(dateInit.value).getTime(),
+                            dateEnd : new Date(dateEnd.value).getTime(),
+                            regex : regex.value
+                        })
+                    }).then(Response => {
+                        if(Response.ok){
+                            location.reload();
+                        }
                     })
-                }
-            }
-        ).then(Response => {
-            console.log(Response)
-        })
-    })
 }
+          
+
 </script>
 <template>
         <div class=" w-full rounded py-2">
-            <form action="" class="flex flex-col items-center space-y-5 " @submit="submitForm()">
+            <form action="" class="flex flex-col items-center space-y-5 " id="form">
                 <div class="flex flex-col  w-1/2">
                     <span class="font-semibold  text-lg">title of the ballot boxe </span>
-                    <input type="text" name="" id="" placeholder="title of ballot boxe" class="rounded focus:outline-none bg-gray-200 text-center py-[2px] font-semibold text-xl" required>
+                    <input type="text" v-model="inputTitle" placeholder="title of ballot boxe" class="rounded focus:outline-none bg-gray-200 text-center py-[2px] font-semibold text-xl" required>
                 </div>
                 <div class="flex space-x-5 w-full flex-wrap justify-center h-[35vh] overflow-y-auto ">
                     <div v-for="(option, index) in options" 
@@ -102,19 +102,20 @@ function submitForm(){
                 <div class="flex space-x-10 w-full justify-center">
                         <div class="flex flex-col font">
                             <span class="font-semibold">Date initial </span>
-                            <input type="datetime-local" name="" id="" class="focus:outline-none bg-gray-200 rounded">
+                            <input type="datetime-local" v-model="dateInit" class="focus:outline-none bg-gray-200 rounded">
                         </div>
                         <div class="flex flex-col font">
                             <span class="font-semibold">Date end </span>
-                            <input type="datetime-local" name="" id="" class="focus:outline-none bg-gray-200 rounded">
+                            <input type="datetime-local" v-model="dateEnd" class="focus:outline-none bg-gray-200 rounded">
                         </div>
                         <div class="flex flex-col font">
-                            <span class="font-semibold">Regex </span>
-                            <input type="text" name="" id="" placeholder="Example '@netflix.com'"
+                            <span class="font-semibold">Regex</span>
+                            <input type="text" v-model="regex" placeholder="Example '@netflix.com'"
                                 class="focus:outline-none bg-gray-200 rounded">
                         </div>
                 </div>
-                <button type="submit" class="bg px-2 rounded text-xl mt-10 h-10 w-40 text-white hover:scale-110">Create</button>
+                <button type="submit" @click="submitForm()"
+                class="bg px-2 rounded text-xl mt-10 h-10 w-40 text-white hover:scale-110 mx-auto">Create</button>
             </form>
         </div>
 </template>
@@ -126,7 +127,7 @@ function submitForm(){
     color: black;
  }
 .bg2{
-    background-image: url("../assets/bgLogin.svg");
+    background-image: url("../assets/bgColum.svg");
     background-size: cover;
     background-repeat: no-repeat;
  }

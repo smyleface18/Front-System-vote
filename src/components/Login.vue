@@ -40,7 +40,6 @@ function login(){
         e.preventDefault();
         fetch('http://127.0.0.1:8080/login', {
         method:'POST',
-        modo:'cors',
         headers: {
             'Content-Type' : 'application/json'
         },
@@ -75,7 +74,7 @@ function login(){
     <div id="bg" class="w-[100vw]  flex items-center justify-center">
         <div class="flex items-center h-2/3  rounded">
             <form action="" method="post" class="flex flex-col space-y-8 mr-[-10px]   w-4/6 h-full px-5 justify-center bg-form  bg-[#00000062]">
-                    <img src="../assets/usuario (1).png" alt="icon people" class="w-2/5 mx-auto">
+                    <img src="../assets/caballeroV2.png" alt="icon people" class="w-2/5 mx-auto bg-white rounded-full">
                     <div class="containerInput mx-auto" :class="{'bg-white':isFocus[0]}" >
                         <span class=" h-[100%] rounded px-2 text-white   flex items-center" :class="{' !text-black':isFocus[0]}">Name</span><input type="text" name="" id="nameUser" placeholder=" your name or email" class="inputs h-full" required>
                     </div>
@@ -96,15 +95,13 @@ function login(){
     }
     #bg{
         height: calc(100vh - 65px);
-        background-image: url('../assets/bgLogin.svg');
+        background-image: url('../assets/bgColum.svg');
+        background-size: cover;
         -webkit-box-shadow: inset 10px 62px 215px -15px rgba(77,76,77,1);
         -moz-box-shadow: inset 10px 62px 215px -15px rgba(77,76,77,1);
         box-shadow: inset 10px 62px 215px -15px rgba(77,76,77,1);
     }
-    .bg-form{
-        background-size: cover ;
-        background-image: url('../assets/bg-form.svg');
-    }
+  
     .containerInput{
         display: flex;
         flex-direction: row;
