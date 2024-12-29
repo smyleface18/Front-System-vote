@@ -2,6 +2,8 @@
 import { ref, onMounted,computed } from 'vue';
 import DashBoard from './DashBoard.vue';
 import BallotBoxe from './BallotBoxe.vue';
+import BallotBoxSettings from './BallotBoxSettings.vue';
+import Vote from './Vote.vue'
 
 let isLoading = ref(true);
 let data = ref({});
@@ -35,7 +37,9 @@ onMounted(() => {
 
 const routes = {
   '/': DashBoard,
-  '/BallotBoxe': BallotBoxe
+  '/BallotBoxe': BallotBoxe,
+  '/BallotBoxSettings' : BallotBoxSettings,
+  '/Vote' : Vote
 }
 
 
@@ -46,6 +50,9 @@ window.addEventListener('hashchange', () => {
 })
 
 const currentView = computed(() => {
+   if(currentPath.value.includes('?')){
+    return routes[currentPath.value.split('?')[0].slice(1) || '/'] || DashBoard
+   }
   return routes[currentPath.value.slice(1) || '/'] || DashBoard
 })
 </script>
@@ -56,11 +63,11 @@ const currentView = computed(() => {
             <a href="#/" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Dashboard</a>
             <a href="#/BallotBoxe" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My ballot boxe</a>
             <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My votes</a>
-            <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</a>
+            <a href="#/Vote" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Participate</a>
             <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</a>
             <img src="../assets/Estadistica-icon.png"  class="w-3/5 pt-10 " alt="">
         </div>
-        <component class="w-4/5  h-full " v-if="!isLoading" :is="currentView" :data="data"></component>
+        <component class="w-4/5  h-full " v-if="!isLoading" :is="currentView" :data="data" :idUser="data.id" ></component>
         <div v-else class="flex justify-center items-center h-full"> 
             <p>Cargando datos...</p>
         </div>

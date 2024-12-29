@@ -14,7 +14,8 @@
     "front-system-vote": "file:",
     "sweetalert2": "^11.6.13",
     "v-calendar": "^3.1.2",
-    "vue": "^3.5.12"
+    "vue": "^3.5.12",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
