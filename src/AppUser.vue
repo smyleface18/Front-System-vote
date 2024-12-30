@@ -3,6 +3,7 @@ import {ref, computed} from 'vue';
 import Profile from './components/Profile.vue';
 import Login from './components/HelloWorld.vue';
 import SingUp from './components/SingUp.vue';
+import Exit from './components/icons/Exit.vue'
 const routes = {
   '/': Profile,
   '/API': Login,
@@ -19,6 +20,11 @@ window.addEventListener('hashchange', () => {
 const currentView = computed(() => {
   return routes[currentPath.value.slice(1) || '/'] || Profile
 })
+
+function goBack() {
+  console.log("d")
+  localStorage.setItem("token","")
+  history.back(); }
 </script>
 
 <template>
@@ -48,6 +54,7 @@ const currentView = computed(() => {
                <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Examples</a>
                <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/API">API</a>
                <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Profile</a>
+               <a class=" text-white bg-black size-8 p-[1px] flex justify-center items-center rounded-full font-medium leading-normal hover:scale-110" href="http://localhost:5173/"  @click="goBack()"><Exit class="size-3/4"></Exit></a>
              </div>
            </div>
          </header>
