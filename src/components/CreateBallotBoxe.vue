@@ -2,8 +2,8 @@
 import {  ref } from 'vue';
 import Iconclose from './icons/IconClose.vue';
 import IconAdd from './icons/IconAdd.vue';
-
-
+import IconQuestion from './icons/IconQuestion.vue';
+import Swal from 'sweetalert2';
 
 
 const props = defineProps(['idUser'])
@@ -15,6 +15,7 @@ const token = localStorage.getItem("token");
 let dateInit = ref(null);
 let dateEnd = ref(null);
 let regex = ref(null);
+
 let ShowPreviewBallotBoxe = ref(false)
 
 function addOption(){
@@ -62,7 +63,14 @@ function submitForm(){
                         }
                     })
 }
-          
+
+function informationRegex(){
+        Swal.fire({                    
+                    text: "Regex (Regular Expression): This field is an additional security setting. If the poll creator wishes to restrict participation to only certain registered Freevote users who have a specific email domain, they must enter that domain in this field. For example, if “@udecoder.com” is entered, only users with emails ending in “@udecoder.com” will be able to vote. If this field is left empty, any user with any email will be able to vote.",
+                    icon: "info"})
+        informationRegex.value = false
+
+} 
 
 </script>
 <template>
@@ -70,7 +78,7 @@ function submitForm(){
             <form action="" class="flex flex-col items-center space-y-5 " id="form">
                 <div class="flex flex-col  w-1/2">
                     <span class="font-semibold  text-lg">title of the ballot boxe </span>
-                    <input type="text" v-model="inputTitle" placeholder="title of ballot boxe" class="rounded focus:outline-none bg-gray-200 text-center py-[2px] font-semibold text-xl" required>
+                    <input type="text" v-model="inputTitle" placeholder="you cannot repeat titles" class="rounded focus:outline-none bg-gray-200 text-center py-[2px] font-semibold text-xl" required>
                 </div>
                 <div class="flex space-x-5 w-full flex-wrap justify-center h-[35vh] overflow-y-auto ">
                     <div v-for="(option, index) in options" 
@@ -88,7 +96,7 @@ function submitForm(){
                              class="size-5 text-red-600 hover:cursor-pointer" 
                              ></Iconclose>
                         </div>
-                        <img src="../assets/king.png" alt="img option" class="rounded-full bg-black h-1/2 p-1">
+                        <img src="../assets/noble.png" alt="img option" class="rounded-full bg-black h-1/2 p-1">
                         <input :ref="el => option.input = el" type="text" name="" id="inputNameOption" placeholder="name of the option" 
                         class="focus:outline-none  rounded bg-gray-200 text-center py-[2px]" required>
                     </div>
@@ -109,7 +117,7 @@ function submitForm(){
                             <input type="datetime-local" v-model="dateEnd" class="focus:outline-none bg-gray-200 rounded">
                         </div>
                         <div class="flex flex-col font">
-                            <span class="font-semibold">Regex</span>
+                            <span class="font-semibold flex">Regex <IconQuestion @click="informationRegex()" class="ml-2 hover:cursor-pointer" ></IconQuestion></span>
                             <input type="text" v-model="regex" placeholder="Example '@netflix.com'"
                                 class="focus:outline-none bg-gray-200 rounded">
                         </div>

@@ -15,7 +15,6 @@ const viewComponent = reactive({
     CardBallot: haveVotes
 });
 async function GetToken(id){
-    console.log("ds")
      const Response = await fetch("http://127.0.0.1:8080/vote/generate/token/access",{
         method: 'POST',
         headers:{
@@ -53,11 +52,15 @@ function handleStatus(data){
                     class="p-2 rounded">View Ballot Boxe</button>
         </div>
         <CreateBallotBoxe v-if="viewComponent.CreateBallotBoxe" :idUser="props.data.id" ></CreateBallotBoxe>
-        
+
         <div v-if="viewComponent.CardBallot" class="w-full flex flex-col items-center pt-10   mt-2 ">
             <CardBallot v-for="(vote, index) in votes" :key="vote.id" :vote="vote" @status="handleStatus" class="rounded mb-5  ">
-                <IconKey   @click="GetToken(vote.id)" class="mx-5 bg p-2 rounded size-9 hover:cursor-pointer"></IconKey>
-                <a class="mx-5 bg p-2 rounded" :href="`#/BallotBoxSettings?idVote=${vote.id}`">view all information</a>
+                <template #footer>
+                    <div class="flex w-full justify-end">
+                        <IconKey   @click="GetToken(vote.id)" class="mx-5 bg p-2 rounded size-9 hover:cursor-pointer"></IconKey>
+                        <a class="mx-5 bg p-2 rounded" :href="`#/BallotBoxSettings?idVote=${vote.id}`">view all information</a>
+                    </div>
+                </template>
             </CardBallot>
             <div v-show="!haveVotes" class="h-full flex w-full justify-center items-center">
                 <span class="text-xl">You have no votes created...</span>

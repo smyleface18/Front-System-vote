@@ -22,18 +22,19 @@ function SendStatus(){
 <template>
     <div class="w-3/4 bgCard py-5 rounded">
         <div class="w-full flex justify-end items-center px-2">
+            <slot name="header"></slot>
             <p class="font-medium px-2 text-emerald-500" :class="{ '!text-red-500': !status }">{{ textActived }}</p>
             <iconStatus class="text-emerald-500" :class="{ '!text-red-500': !status }"></iconStatus>
         </div>
         <h5 class="font-bold text-4xl text-center py-5 bgText">{{ props.vote.title }}</h5>
-        <div class="flex justify-center flex-wrap space-x-2">
+        <div class="flex justify-center flex-wrap space-x-2 ">
             <div v-for="option in props.vote.options" :key="option.id" class="flex flex-col justify-center items-center px-5 w-[200px]">
-                <img src="../assets/king.png" alt="img option" class="size-24 rounded-full bg-black p-1">
+                <img src="../assets/noble.png" alt="img option" class="size-24 rounded-full bg-black p-1">
                 <p class="text-center py-3 font-medium">{{ option.text }}</p>
             </div>
         </div>
-        <div class="flex justify-end">
-            <slot></slot>
+        <div >
+            <slot name="footer"></slot>
         </div>
     </div>
 </template>

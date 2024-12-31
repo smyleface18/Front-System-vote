@@ -4,6 +4,7 @@ import DashBoard from './DashBoard.vue';
 import BallotBoxe from './BallotBoxe.vue';
 import BallotBoxSettings from './BallotBoxSettings.vue';
 import Vote from './Vote.vue'
+import YourVotes from './YourVotes.vue';
 
 let isLoading = ref(true);
 let data = ref({});
@@ -39,7 +40,8 @@ const routes = {
   '/': DashBoard,
   '/BallotBoxe': BallotBoxe,
   '/BallotBoxSettings' : BallotBoxSettings,
-  '/Vote' : Vote
+  '/Vote' : Vote,
+  '/YourVotes' : YourVotes
 }
 
 
@@ -62,12 +64,12 @@ const currentView = computed(() => {
         <div class="h-full bg  flex flex-col justify-start items-center py-10 space-y-5 text-white w-2/12 rounded-lg">
             <a href="#/" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Dashboard</a>
             <a href="#/BallotBoxe" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My ballot boxe</a>
-            <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My votes</a>
+            <a href="#/YourVotes" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My votes</a>
             <a href="#/Vote" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Participate</a>
             <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</a>
             <img src="../assets/Estadistica-icon.png"  class="w-3/5 pt-10 " alt="">
         </div>
-        <component class="w-4/5  h-full " v-if="!isLoading" :is="currentView" :data="data" :idUser="data.id" ></component>
+        <component class="w-4/5  h-full " v-if="!isLoading" :is="currentView" :data="data" :idUser="data.id" :voted="data.voted" ></component>
         <div v-else class="flex justify-center items-center h-full"> 
             <p>Cargando datos...</p>
         </div>

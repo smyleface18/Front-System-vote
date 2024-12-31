@@ -55,7 +55,7 @@ function sendVote(){
 }
 </script>
 <template>
-    <div class="bg-white h-full w-full">
+    <div class="bg-white h-full w-full flex flex-col items-center overflow-y-auto">
         <h5 class="font-medium text-3xl text-center py-5 bgText">Seek voting</h5>
             <div class="w-2/3 mx-auto mb-5">
                 <form id="form" class="bg-gray-200 mx-auto h-10 rounded-3xl px-5 flex items-center">
@@ -66,12 +66,12 @@ function sendVote(){
                     </button>
                 </form>
             </div>
-            <h6 class="font-bold text-4xl text-center mb-2  bgText">{{ vote.title }}</h6>
-            <div class=" w-full  overflow-y-auto flex flex-wrap h-[50%] space-x-2 justify-center p-2">
+            <h6 class="font-bold text-4xl text-center  p-3 bgText">{{ vote.title }}</h6>
+            <div class=" w-3/4  flex flex-wrap space-x-2 justify-center items-center p-2 ">
                     <div v-for="(option, index) in vote.options" :key="option.id" @click="optionSelect(index)"
                         :class="{ 'bg2': opSelect[index].select }"
-                        class="rounded  p-5 h-[70%]  flex hover:scale-105 flex-col items-center space-y-2  transition ease-linear delay-200  hover:cursor-pointer ">
-                        <img src="../assets/king.png" alt="img option" class="rounded-full bg-black h-[90%] p-1">
+                        class="rounded  p-5 h-[200px]  flex hover:scale-105 flex-col items-center space-y-2  transition ease-linear delay-200  hover:cursor-pointer ">
+                        <img src="../assets/noble.png" alt="img option" class="rounded-full bg-black h-[90%] p-1">
                         <p class="flex-wrap w-full text-center">{{ option.text }}</p>
                     </div>
             </div>

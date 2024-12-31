@@ -54,7 +54,7 @@ function goBack() {
                <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Examples</a>
                <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/API">API</a>
                <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Profile</a>
-               <a class=" text-white bg-black size-8 p-[1px] flex justify-center items-center rounded-full font-medium leading-normal hover:scale-110" href="http://localhost:5173/"  @click="goBack()"><Exit class="size-3/4"></Exit></a>
+               <a class=" text-white bg-red-500 size-8 p-[1px] flex justify-center items-center rounded-full font-medium leading-normal hover:scale-110" href="http://localhost:5173/"  @click="goBack()"><Exit class="size-3/4"></Exit></a>
              </div>
            </div>
          </header>
