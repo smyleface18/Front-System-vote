@@ -3,7 +3,7 @@ import './style.css'
 import App from './Intro.vue'
 import AppUser from './AppUser.vue'
 import VCalendar from 'v-calendar'
-import router from './router';
+import router from './routerMain'
 
 createApp(App).mount('#app')
 

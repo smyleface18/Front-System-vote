@@ -11,10 +11,11 @@ console.log(vote)
 
 <template>
   <div class="bg-white overflow-y-scroll flex flex-col items-center space-y-5 py-5">
-    <h5 class="bgText font-bold text-5xl pb-5">Settings</h5>
     <CardBallot :vote="vote" class="w-3/4"></CardBallot>
     <div>
-      <h6 class="bgText font-semibold text-3xl py-5">Statistics & Data</h6>
+      <div class="">
+        <h6 class="text-white bg-black p-2 rounded font-semibold text-3xl py-5">Statistics & Data</h6>
+      </div>
       <div v-for="voter in vote.voters" class="flex items-center">
         <img src="../assets/caballeroV2.png" alt="" class="size-14">
         <p>{{ voter.name }}</p>

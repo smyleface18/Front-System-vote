@@ -4,6 +4,7 @@ import CreateBallotBoxe from './CreateBallotBoxe.vue';
 import IconKey from './icons/IconKey.vue'
 import { ref, reactive } from 'vue';
 import Swal from 'sweetalert2';
+import { RouterLink } from 'vue-router';
 
 const props = defineProps(['data']);
 let haveVotes = props.data.vote.length !== 0;
@@ -58,7 +59,7 @@ function handleStatus(data){
                 <template #footer>
                     <div class="flex w-full justify-end">
                         <IconKey   @click="GetToken(vote.id)" class="mx-5 bg p-2 rounded size-9 hover:cursor-pointer"></IconKey>
-                        <a class="mx-5 bg p-2 rounded" :href="`#/BallotBoxSettings?idVote=${vote.id}`">view all information</a>
+                        <RouterLink class="mx-5 bg p-2 rounded" :to="{name: 'BallotBoxSettings', query:{idVote: vote.id}}">view all information</RouterLink>
                     </div>
                 </template>
             </CardBallot>

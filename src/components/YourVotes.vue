@@ -13,8 +13,8 @@ function winner(options){
 }
 </script>
 <template>
-    <div class="bg-white w-full h-full overflow-y-auto py-2">
-        <h4 class="text-4xl text-center py-5 bgText font-bold">You have participated in the following votes</h4>
+    <div class="bg-white h-full overflow-y-auto py-2">
+        <h4 class="text-4xl text-center py-5 bgText font-bold">You have participated in  following votes</h4>
         <div v-for="voted in [...props.voted].reverse()" class="py-2 flex justify-center">
             
             <CardBallot :vote="voted" class="flex flex-col items-center">

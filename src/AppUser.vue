@@ -1,28 +1,8 @@
 <script setup>
-import {ref, computed} from 'vue';
-import Profile from './components/Profile.vue';
-import Login from './components/HelloWorld.vue';
-import SingUp from './components/SingUp.vue';
 import Exit from './components/icons/Exit.vue'
-const routes = {
-  '/': Profile,
-  '/API': Login,
-  '/SingUp': SingUp
-}
-
-
-const currentPath = ref(window.location.hash);
-
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
-})
-
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || Profile
-})
+import { RouterLink, RouterView } from 'vue-router';
 
 function goBack() {
-  console.log("d")
   localStorage.setItem("token","")
   history.back(); }
 </script>
@@ -49,16 +29,17 @@ function goBack() {
            </div>
            <div class="flex flex-1 justify-end gap-8">
              <div class="flex items-center gap-9">
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">How it works</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">News</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Examples</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/API">API</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Profile</a>
-               <a class=" text-white bg-red-500 size-8 p-[1px] flex justify-center items-center rounded-full font-medium leading-normal hover:scale-110" href="http://localhost:5173/"  @click="goBack()"><Exit class="size-3/4"></Exit></a>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">How it works</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">News</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">Examples</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/API">API</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/Profile">Profile</RouterLink>
+               <RouterLink class=" text-white bg-red-500 size-8 p-[1px] flex justify-center items-center rounded-full font-medium leading-normal hover:scale-110" to="http://localhost:5173/" 
+                @click="goBack()"><Exit class="size-3/4"></Exit></RouterLink>
              </div>
            </div>
-         </header>
-         <component :is="currentView" class=" bg-gray-200 h-2/4"></component>
+  </header>
+         <RouterView class=" bg-gray-200 h-2/4"></RouterView>
  </template>
  <style>
      #hoverButton:hover{

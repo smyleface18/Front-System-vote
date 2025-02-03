@@ -22,7 +22,7 @@ const currentView = computed(() => {
 </script>
 
 <template>
-  <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
+  <header  class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
            <div class="flex items-center gap-4 text-[#111418]">
              <div class="size-6">
                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">

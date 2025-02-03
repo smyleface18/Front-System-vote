@@ -1,10 +1,6 @@
 <script setup>
-import { ref, onMounted,computed } from 'vue';
-import DashBoard from './DashBoard.vue';
-import BallotBoxe from './BallotBoxe.vue';
-import BallotBoxSettings from './BallotBoxSettings.vue';
-import Vote from './Vote.vue'
-import YourVotes from './YourVotes.vue';
+import { ref, onMounted} from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
 
 let isLoading = ref(true);
 let data = ref({});
@@ -36,40 +32,19 @@ onMounted(() => {
     fetchData();
 });
 
-const routes = {
-  '/': DashBoard,
-  '/BallotBoxe': BallotBoxe,
-  '/BallotBoxSettings' : BallotBoxSettings,
-  '/Vote' : Vote,
-  '/YourVotes' : YourVotes
-}
-
-
-const currentPath = ref(window.location.hash);
-
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
-})
-
-const currentView = computed(() => {
-   if(currentPath.value.includes('?')){
-    return routes[currentPath.value.split('?')[0].slice(1) || '/'] || DashBoard
-   }
-  return routes[currentPath.value.slice(1) || '/'] || DashBoard
-})
 </script>
 
 <template>
     <div class="w-full flex h space-x-10 p-5">
         <div class="h-full bg  flex flex-col justify-start items-center py-10 space-y-5 text-white w-2/12 rounded-lg">
-            <a href="#/" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Dashboard</a>
-            <a href="#/BallotBoxe" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My ballot boxe</a>
-            <a href="#/YourVotes" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My votes</a>
-            <a href="#/Vote" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Participate</a>
-            <a href="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</a>
+            <RouterLink  to="/Profile" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Dashboard</RouterLink>
+            <RouterLink  to="/BallotBoxe" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My ballot boxe</RouterLink>
+            <RouterLink  to="/YourVotes" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">My votes</RouterLink>
+            <RouterLink  to="/Vote" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Participate</RouterLink>
+            <RouterLink  to="" class="w-3/5 text-center py-2 hover:bg-[#0000003d] rounded-md">Option</RouterLink>
             <img src="../assets/Estadistica-icon.png"  class="w-3/5 pt-10 " alt="">
         </div>
-        <component class="w-4/5  h-full " v-if="!isLoading" :is="currentView" :data="data" :idUser="data.id" :voted="data.voted" ></component>
+        <RouterView class="w-4/5  h-full " v-if="!isLoading" :is="currentView" :data="data" :idUser="data.id" :voted="data.voted" ></RouterView>
         <div v-else class="flex justify-center items-center h-full"> 
             <p>Cargando datos...</p>
         </div>

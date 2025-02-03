@@ -41,7 +41,6 @@ function initSelect() {
     });
 }
 function sendVote(){
-    console.log("s")
     let idOption = -1
     opSelect.value.forEach((op) =>{ 
         if(op.select === true)
@@ -55,7 +54,7 @@ function sendVote(){
 }
 </script>
 <template>
-    <div class="bg-white h-full w-full flex flex-col items-center overflow-y-auto">
+    <div class="bg-white flex flex-col items-center overflow-y-auto ">
         <h5 class="font-medium text-3xl text-center py-5 bgText">Seek voting</h5>
             <div class="w-2/3 mx-auto mb-5">
                 <form id="form" class="bg-gray-200 mx-auto h-10 rounded-3xl px-5 flex items-center">

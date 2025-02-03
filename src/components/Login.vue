@@ -51,7 +51,7 @@ function login(){
     .then(data => {
         if(data.token){
             localStorage.setItem('token',data.token)
-            window.location.href = '/users'
+            window.location.href = '/users#/Profile'
         }
         if(data.token == null){
             Swal.fire({                    
