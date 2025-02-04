@@ -7,14 +7,10 @@ import DashBoard from './components/DashBoard.vue';
 import Vote from './components/Vote.vue';
 import YourVotes from './components/YourVotes.vue';
 import BallotBoxSettings from './components/BallotBoxSettings.vue';
+import Swal from 'sweetalert2';
+import DocumentationApi from './components/DocumentationApi.vue';
 
 const routes = [
-    {   path: '/API', 
-        component: Login 
-    },
-    {   path: '/SingUp', 
-        component: SingUp 
-    },
     {
         path: '/Profile',
         component: Profile,
@@ -28,7 +24,17 @@ const routes = [
           component: BallotBoxSettings,
           props: (route) => ({idVote: route.query.idVote})
         }
-    ]
+    ],
+    meta: {
+        requiresAuth: true
+    }
+ },
+ {
+    path : '/DocumentationApi',
+    component: DocumentationApi,
+    meta: {
+        requiresAuth: false
+    }
  }
 ];
 
@@ -36,5 +42,24 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 });
-
+router.beforeEach((to,from, next) => {
+    if(to.meta.requiresAuth){
+        console.log(to)
+        console.log("entro")
+        if(localStorage.getItem("token") === ""){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Your session is no longer valid, log in again',
+                icon: 'error',
+                confirmButtonText: 'ok'
+              }).then((result) =>{
+                window.location.href = '/index.html#/Login';
+              })
+        }else{
+            next()
+        }
+    } else {
+        next()
+    }
+})
 export default router;

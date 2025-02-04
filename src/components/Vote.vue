@@ -26,6 +26,9 @@ function submitForm() {
             vote.value = await response.json()
             initSelect()
         }
+        if (response.status === 403) {
+            localStorage.setItem("token", "")
+        }
     })
 }
 function optionSelect(index) {
@@ -36,47 +39,53 @@ function optionSelect(index) {
 function initSelect() {
     vote.value.options.forEach((option) => {
         opSelect.value.push({
-            select : false,
-            id : option.id})
+            select: false,
+            id: option.id
+        })
     });
 }
-function sendVote(){
+function sendVote() {
     let idOption = -1
-    opSelect.value.forEach((op) =>{ 
-        if(op.select === true)
-            {idOption = op.id}})        
-    fetch(`http://127.0.0.1:8080/option/voted/${vote.value.id}/option/${idOption}/${localStorage.getItem("token")}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem("token"),
-                'Content-Type': 'application/json'
-            }})
+    opSelect.value.forEach((op) => {
+        if (op.select === true) { idOption = op.id }
+    })
+    const response = fetch(`http://127.0.0.1:8080/option/voted/${vote.value.id}/option/${idOption}/${localStorage.getItem("token")}`, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            'Content-Type': 'application/json'
+        }
+    })
+    if (response.status === 403) {
+        localStorage.setItem("token", "")
+    }
 }
 </script>
 <template>
     <div class="bg-white flex flex-col items-center overflow-y-auto ">
         <h5 class="font-medium text-3xl text-center py-5 bgText">Seek voting</h5>
-            <div class="w-2/3 mx-auto mb-5">
-                <form id="form" class="bg-gray-200 mx-auto h-10 rounded-3xl px-5 flex items-center">
-                    <input type="text" name="" v-model="tokenVote"
-                        class=" focus:outline-none  bg-gray-200 outline-blue-500 w-full" required>
-                    <button type="submit">
-                        <IconSearch class="size-9 hover:cursor-pointer"></IconSearch>
-                    </button>
-                </form>
+        <div class="w-2/3 mx-auto mb-5">
+            <form id="form" class="bg-gray-200 mx-auto h-10 rounded-3xl px-5 flex items-center">
+                <input type="text" name="" v-model="tokenVote"
+                    class=" focus:outline-none  bg-gray-200 outline-blue-500 w-full" required>
+                <button type="submit">
+                    <IconSearch class="size-9 hover:cursor-pointer"></IconSearch>
+                </button>
+            </form>
+        </div>
+        <h6 class="font-bold text-4xl text-center  p-3 bgText">{{ vote.title }}</h6>
+        <div class=" w-3/4  flex flex-wrap space-x-2 justify-center items-center p-2 ">
+            <div v-for="(option, index) in vote.options" :key="option.id" @click="optionSelect(index)"
+                :class="{ 'bg2': opSelect[index].select }"
+                class="rounded  p-5 h-[200px]  flex hover:scale-105 flex-col items-center space-y-2  transition ease-linear delay-200  hover:cursor-pointer ">
+                <img src="../assets/noble.png" alt="img option" class="rounded-full bg-black h-[90%] p-1">
+                <p class="flex-wrap w-full text-center">{{ option.text }}</p>
             </div>
-            <h6 class="font-bold text-4xl text-center  p-3 bgText">{{ vote.title }}</h6>
-            <div class=" w-3/4  flex flex-wrap space-x-2 justify-center items-center p-2 ">
-                    <div v-for="(option, index) in vote.options" :key="option.id" @click="optionSelect(index)"
-                        :class="{ 'bg2': opSelect[index].select }"
-                        class="rounded  p-5 h-[200px]  flex hover:scale-105 flex-col items-center space-y-2  transition ease-linear delay-200  hover:cursor-pointer ">
-                        <img src="../assets/noble.png" alt="img option" class="rounded-full bg-black h-[90%] p-1">
-                        <p class="flex-wrap w-full text-center">{{ option.text }}</p>
-                    </div>
-            </div>
-            <div class="w-full flex justify-center py-2">
-                        <button @click="sendVote()" class="text-center font-medium text-xl p-2 bg2 rounded text-white">send vote</button>
-            </div>
+        </div>
+        <div class="w-full flex justify-center py-2">
+            <button @click="sendVote()" class="text-center font-medium text-xl p-2 bg2 rounded text-white">send
+                vote</button>
+        </div>
     </div>
 </template>
 <style scoped>

@@ -33,6 +33,10 @@ async function GetToken(id){
                     text: "The code has been generated correctly and has already been copied.",
                     icon: "success"})
     }
+    if (response.status == 403) {
+            console.log("s")
+            localStorage.setItem("token","")
+        }
     else {
         Swal.fire({                    
                     text: "code not generated",

@@ -1,10 +1,9 @@
 <script setup>
-import Exit from './components/icons/Exit.vue'
-import { RouterLink, RouterView } from 'vue-router';
-
+import Exit from './components/icons/Exit.vue';
 function goBack() {
-  localStorage.setItem("token","")
-  history.back(); }
+  localStorage.setItem("token","");
+ window.location.href = "/index.html"
+  }
 </script>
 
 <template>
@@ -32,10 +31,10 @@ function goBack() {
                <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">How it works</RouterLink>
                <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">News</RouterLink>
                <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">Examples</RouterLink>
-               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/API">API</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/DocumentationApi">API</RouterLink>
                <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/Profile">Profile</RouterLink>
-               <RouterLink class=" text-white bg-red-500 size-8 p-[1px] flex justify-center items-center rounded-full font-medium leading-normal hover:scale-110" to="http://localhost:5173/" 
-                @click="goBack()"><Exit class="size-3/4"></Exit></RouterLink>
+               <a class=" text-white bg-red-500 size-8 p-[1px] flex justify-center items-center rounded-full font-medium leading-normal hover:scale-110"
+                @click="goBack()"><Exit class="size-3/4"></Exit></a>
              </div>
            </div>
   </header>

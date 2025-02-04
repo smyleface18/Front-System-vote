@@ -1,24 +1,7 @@
 <script setup>
-import {ref, computed} from 'vue';
-import Home from './components/PagBody.vue';
-import Login from './components/Login.vue';
-import SingUp from './components/SingUp.vue';
-const routes = {
-  '/': Home,
-  '/Login': Login,
-  '/SingUp': SingUp
-}
+import { RouterLink, RouterView } from 'vue-router';
 
 
-const currentPath = ref(window.location.hash);
-
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
-})
-
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
-})
 </script>
 
 <template>
@@ -43,25 +26,25 @@ const currentView = computed(() => {
            </div>
            <div class="flex flex-1 justify-end gap-8">
              <div class="flex items-center gap-9">
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">How it works</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">News</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Examples</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">API</a>
-               <a class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" href="#/">Home</a>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">How it works</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">News</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">Examples</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/DocumentationApi">API</RouterLink>
+               <RouterLink class="text-[#111418] text-sm font-medium leading-normal hover:scale-110" to="/">Home</RouterLink>
              </div>
-             <a id="hoverButton" href="#/Login"
+             <RouterLink id="hoverButton" to="/Login"
                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#1980e6] text-white text-sm font-bold leading-normal tracking-[0.015em]"
              >
                <span class="truncate" >Login</span>
-            </a>
-             <a id="button2" href="#/SingUp"
+            </RouterLink>
+             <RouterLink id="button2" to="/SingUp"
                  class="flex min-w-[84px]   max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
                >
                  <span class="truncate"  >Sign up</span>
-            </a>
+            </RouterLink>
            </div>
          </header>
-         <component :is="currentView" ></component>
+         <RouterView></RouterView>
  </template>
  <style>
      #hoverButton:hover{

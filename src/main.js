@@ -4,8 +4,9 @@ import App from './Intro.vue'
 import AppUser from './AppUser.vue'
 import VCalendar from 'v-calendar'
 import router from './routerMain'
+import routerIntro from './routerIntro'
 
-createApp(App).mount('#app')
+createApp(App).use(routerIntro).mount('#app')
 
 createApp(AppUser).use(VCalendar, { 
     componentPrefix: 'vc',

@@ -15,9 +15,12 @@ const fetchData = async () => {
                 'Content-Type': 'application/json'
             }
         });
-
+        if (response.status === 403) {
+            localStorage.setItem("token","")
+        }
         if (!response.ok) {
             throw new Error('Network response was not ok');
+            
         }
 
         const result = await response.json();
@@ -25,6 +28,7 @@ const fetchData = async () => {
         isLoading.value = false;
     } catch (error) {
         console.error('Error:', error);
+        
     }
 };
 

@@ -61,6 +61,9 @@ function submitForm(){
                         if(Response.ok){
                             location.reload();
                         }
+                        if (response.status === 403) {
+                            localStorage.setItem("token","")
+                        }
                     })
 }
 
